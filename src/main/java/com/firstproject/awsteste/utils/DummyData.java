@@ -10,15 +10,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.firstproject.awsteste.model.Post;
+import com.firstproject.awsteste.model.Usuario;
 import com.firstproject.awsteste.repository.CodeBlogRepository;
+import com.firstproject.awsteste.repository.UserRepository;
 
 @Component
 public class DummyData {
 
-	@Autowired
-	CodeBlogRepository codeblogRepository;
 	
-	//@PostConstruct
+	/* CodeBlogRepository codeblogRepository; */
+	@Autowired
+	UserRepository user;
+	
+	@PostConstruct
+	public void saveUser() {
+		List<Usuario> userSave = new ArrayList<>();
+		Usuario user1 = new Usuario();
+		
+		user1.setNome("Andrel");
+		user1.setUsername("Andrezinho Parrasa");
+		user1.setEmail("carai@docarai.memo");
+		user1.setPassword("senhadificildocarai");
+		
+		Usuario user2 = new Usuario();
+		
+		user2.setNome("Andrelicia");
+		user2.setUsername("Do carai");
+		user2.setEmail("poxa@aemesmo.memo");
+		user2.setPassword("123456");
+		
+		userSave.add(user1);
+		userSave.add(user2);
+		
+		for(Usuario usa : userSave) {
+			Usuario userSaved = user.save(usa);
+			System.out.println("Usuário "+userSaved.getIdUser()+" salvo com sucesso !");
+		}
+	}
+	/*
 	public void savePosts() {
 		List<Post> postList = new ArrayList<>();
 		
@@ -46,4 +75,5 @@ public class DummyData {
 			System.out.println(postSaved.getId());
 		}
 	}
+	*/
 }
